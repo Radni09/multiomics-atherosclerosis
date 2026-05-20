@@ -45,17 +45,19 @@ gene_mean = gene_df["Gene_score"].mean()
 gene_min = gene_df["Gene_score"].min()
 gene_max = gene_df["Gene_score"].max()
 
-gene_risk = (
+base_gene_risk = (
     (gene_mean - gene_min) /
     (gene_max - gene_min)
 ) * 0.3
+
+
 
 met_mean = met_df["Metabolite_score"].mean()
 
 met_min = met_df["Metabolite_score"].min()
 met_max = met_df["Metabolite_score"].max()
 
-met_risk = (
+base_met_risk = (
     (met_mean - met_min) /
     (met_max - met_min)
 ) * 0.2
@@ -177,6 +179,17 @@ personal_lifestyle = personal_lifestyle / 15
 # ---------------------------------------------------
 
 final_lifestyle_risk = personal_lifestyle 
+# Lifestyle dynamically affects omics
+
+gene_risk = (
+    base_gene_risk *
+    (1 + final_lifestyle_risk)
+)
+
+met_risk = (
+    base_met_risk *
+    (1 + (0.8 * final_lifestyle_risk))
+)
 
 
 # ---------------------------------------------------
