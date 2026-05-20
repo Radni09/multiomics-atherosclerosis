@@ -40,20 +40,20 @@ life_df = pd.read_excel(
 # COMPUTE BASELINE RISKS
 # ---------------------------------------------------
 
-gene_mean = gene_df["gene_score"].mean()
+gene_mean = gene_df["Gene_score"].mean()
 
-gene_min = gene_df["gene_score"].min()
-gene_max = gene_df["gene_score"].max()
+gene_min = gene_df["Gene_score"].min()
+gene_max = gene_df["Gene_score"].max()
 
 gene_risk = (
     (gene_mean - gene_min) /
     (gene_max - gene_min)
 ) * 0.3
 
-met_mean = met_df["metabolite_score"].mean()
+met_mean = met_df["Metabolite_score"].mean()
 
-met_min = met_df["metabolite_score"].min()
-met_max = met_df["metabolite_score"].max()
+met_min = met_df["Metabolite_score"].min()
+met_max = met_df["Metabolite_score"].max()
 
 met_risk = (
     (met_mean - met_min) /
