@@ -160,27 +160,26 @@ if diabetes == "Yes":
     personal_lifestyle += 3
 
 # Normalize
-personal_lifestyle = personal_lifestyle / 20
+personal_lifestyle = personal_lifestyle / 15
 
 # ---------------------------------------------------
 # FINAL LIFESTYLE RISK
 # ---------------------------------------------------
 
 final_lifestyle_risk = (
-    baseline_life_risk +
-    personal_lifestyle
-) / 2
+    baseline_life_risk * 0.3 +
+    personal_lifestyle * 0.7
+)
 
 # ---------------------------------------------------
 # OVERALL MULTI-OMICS RISK
 # ---------------------------------------------------
 
 overall_risk = (
-    0.4 * gene_risk +
-    0.3 * met_risk +
-    0.3 * final_lifestyle_risk
+    0.2 * gene_risk +
+    0.1 * met_risk +
+    0.7 * final_lifestyle_risk
 )
-
 # ---------------------------------------------------
 # RISK CATEGORY
 # ---------------------------------------------------
