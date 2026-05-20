@@ -188,7 +188,7 @@ if overall_risk < 0.40:
     risk_label = "LOW RISK"
     risk_color = "green"
 
-elif overall_risk < 0.70:
+elif overall_risk < 0.65:
     risk_label = "MODERATE RISK"
     risk_color = "orange"
 
