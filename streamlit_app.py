@@ -43,12 +43,12 @@ life_df = pd.read_excel(
 gene_risk = (
     gene_df["Gene_score"].mean() /
     gene_df["Gene_score"].max()
-)
+) * 0.4
 
 met_risk = (
     met_df["Metabolite_score"].mean() /
     met_df["Metabolite_score"].max()
-)
+)  * 0.3
 
 baseline_life_risk = (
     life_df["Lifestyle_score"].mean() /
@@ -166,19 +166,17 @@ personal_lifestyle = personal_lifestyle / 15
 # FINAL LIFESTYLE RISK
 # ---------------------------------------------------
 
-final_lifestyle_risk = (
-    baseline_life_risk * 0.3 +
-    personal_lifestyle * 0.7
-)
+final_lifestyle_risk = personal_lifestyle 
+
 
 # ---------------------------------------------------
 # OVERALL MULTI-OMICS RISK
 # ---------------------------------------------------
 
 overall_risk = (
-    0.2 * gene_risk +
-    0.1 * met_risk +
-    0.7 * final_lifestyle_risk
+    gene_risk +
+    met_risk +
+    (0.7 * final_lifestyle_risk)
 )
 # ---------------------------------------------------
 # RISK CATEGORY
