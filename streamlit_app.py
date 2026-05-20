@@ -184,17 +184,14 @@ overall_risk = (
 # RISK CATEGORY
 # ---------------------------------------------------
 
-if overall_risk < 0.33:
+if overall_risk < 0.40:
     risk_label = "LOW RISK"
-    risk_color = "green"
 
-elif overall_risk < 0.66:
+elif overall_risk < 0.70:
     risk_label = "MODERATE RISK"
-    risk_color = "orange"
 
 else:
     risk_label = "HIGH RISK"
-    risk_color = "red"
 
 # ---------------------------------------------------
 # DATASET OVERVIEW
