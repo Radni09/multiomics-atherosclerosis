@@ -24,9 +24,25 @@ section[data-testid="stSidebar"] {
     color: white;
 }
 
-/* Sidebar text */
-section[data-testid="stSidebar"] * {
+/* Sidebar labels/headings */
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] .stMarkdown,
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] h1,
+section[data-testid="stSidebar"] h2,
+section[data-testid="stSidebar"] h3 {
     color: white !important;
+}
+
+/* Selectbox text */
+section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] > div {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Input text */
+section[data-testid="stSidebar"] input {
+    color: black !important;
 }
 
 /* Metric cards */
