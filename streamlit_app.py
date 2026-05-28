@@ -45,7 +45,9 @@ gene_mean = gene_df["Gene_score"].mean()
 gene_min = gene_df["Gene_score"].min()
 gene_max = gene_df["Gene_score"].max()
 
-base_gene_risk = min(base_gene_risk, 0.6)
+base_gene_risk = gene_df["gene_score"].mean()
+
+
 
 
 met_mean = met_df["Metabolite_score"].mean()
@@ -53,7 +55,7 @@ met_mean = met_df["Metabolite_score"].mean()
 met_min = met_df["Metabolite_score"].min()
 met_max = met_df["Metabolite_score"].max()
 
-base_met_risk = min(base_met_risk, 0.5)
+base_met_risk = met_df["metabolite_score"].mean()
 
 baseline_life_risk = (
     life_df["Lifestyle_score"].mean() /
