@@ -1,20 +1,88 @@
-
+st.set_page_config(
+    page_title="Multi-Omics Atherosclerosis Risk Prediction",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+
+st.markdown("""
+<style>
+
+/* Main background */
+.stApp {
+    background: linear-gradient(to right, #eef2f3, #dfe9f3);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    color: white;
+}
+
+/* Sidebar text */
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* Metric cards */
+.metric-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* Risk title */
+.risk-title {
+    font-size: 42px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Section headers */
+.section-header {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1e3c72;
+    margin-top: 20px;
+}
+
+/* Tables */
+[data-testid="stDataFrame"] {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #1e3c72;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 
 # ---------------------------------------------------
 # PAGE CONFIG
 # ---------------------------------------------------
 
-st.set_page_config(
-    page_title="Multi-Omics Atherosclerosis Dashboard",
-    page_icon="🫀",
-    layout="wide"
-)
-
+st.markdown("""
+<h1 style='text-align:center;
+color:#1e3c72;
+font-size:48px;'>
+🧬 Multi-Omics Atherosclerosis Risk Prediction System
+</h1>
+""", unsafe_allow_html=True)
 # ---------------------------------------------------
 # LOAD DATASETS
 # ---------------------------------------------------
@@ -66,7 +134,31 @@ baseline_life_risk = (
     life_df["Lifestyle_score"].mean() /
     life_df["Lifestyle_score"].max()
 )
+col1, col2, col3 = st.columns(3)
 
+with col1:
+    st.markdown(f"""
+    <div class="metric-card">
+        <h3>Transcriptomic Risk</h3>
+        <h1>{gene_risk:.2f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f"""
+    <div class="metric-card">
+        <h3>Metabolomic Risk</h3>
+        <h1>{met_risk:.2f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown(f"""
+    <div class="metric-card">
+        <h3>Lifestyle Risk</h3>
+        <h1>{final_lifestyle_risk:.2f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
 # ---------------------------------------------------
 # TITLE
 # ---------------------------------------------------
@@ -241,6 +333,16 @@ elif overall_risk < 0.60:
 else:
     risk_label = "HIGH RISK"
     risk_color = "red"
+
+# ---------------------------------------------------
+# RISK LABEL DISPLAY
+# ---------------------------------------------------
+
+st.markdown(f"""
+<div class="risk-title" style="color:{risk_color};">
+{risk_label}
+</div>
+""", unsafe_allow_html=True)
 
 # ---------------------------------------------------
 # DATASET OVERVIEW
