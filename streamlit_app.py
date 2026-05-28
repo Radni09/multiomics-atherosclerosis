@@ -180,19 +180,17 @@ if diabetes == "Yes":
 # Normalize
 personal_lifestyle = personal_lifestyle / 15
 
-clinical_risk = 0
+# ---------------------------------------------------
+# CLINICAL RISK
+# ---------------------------------------------------
 
-if glucose > 126:
-    clinical_risk += 0.25
+glucose_risk = 1 if glucose > 126 else 0
 
-if ldl > 160:
-    clinical_risk += 0.25
+ldl_risk = 1 if ldl > 160 else 0
 
-if hdl < 40:
-    clinical_risk += 0.25
+hdl_risk = 1 if hdl < 40 else 0
 
-if bp > 140:
-    clinical_risk += 0.25
+bp_risk = 1 if bp > 140 else 0
 
 clinical_risk = (
     glucose_risk +
