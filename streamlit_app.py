@@ -126,7 +126,13 @@ diabetes = st.sidebar.selectbox(
     "Diabetes",
     ["No", "Yes"]
 )
+glucose = st.slider("Fasting Glucose (mg/dL)", 70, 250, 100)
 
+ldl = st.slider("LDL Cholesterol", 50, 250, 120)
+
+hdl = st.slider("HDL Cholesterol", 20, 100, 50)
+
+bp = st.slider("Systolic Blood Pressure", 80, 200, 120)
 # ---------------------------------------------------
 # PERSONALIZED LIFESTYLE SCORE
 # ---------------------------------------------------
@@ -174,6 +180,27 @@ if diabetes == "Yes":
 # Normalize
 personal_lifestyle = personal_lifestyle / 15
 
+clinical_risk = 0
+
+if glucose > 126:
+    clinical_risk += 0.25
+
+if ldl > 160:
+    clinical_risk += 0.25
+
+if hdl < 40:
+    clinical_risk += 0.25
+
+if bp > 140:
+    clinical_risk += 0.25
+
+clinical_risk = (
+    glucose_risk +
+    ldl_risk +
+    hdl_risk +
+    bp_risk
+) / 4
+
 # ---------------------------------------------------
 # FINAL LIFESTYLE RISK
 # ---------------------------------------------------
@@ -181,15 +208,9 @@ personal_lifestyle = personal_lifestyle / 15
 final_lifestyle_risk = personal_lifestyle 
 # Lifestyle dynamically affects omics
 
-gene_risk = (
-    base_gene_risk *
-    (1 + final_lifestyle_risk)
-)
+gene_risk = base_gene_risk * (1 + 0.5 * final_lifestyle_risk)
 
-met_risk = (
-    base_met_risk *
-    (1 + (0.8 * final_lifestyle_risk))
-)
+met_risk = base_met_risk * (1 + 0.7 * final_lifestyle_risk)
 
 
 # ---------------------------------------------------
@@ -197,19 +218,22 @@ met_risk = (
 # ---------------------------------------------------
 
 overall_risk = (
-    gene_risk +
-    met_risk +
-    (0.7 * final_lifestyle_risk)
+    0.35 * gene_risk +
+    0.20 * met_risk +
+    0.30 * final_lifestyle_risk +
+    0.15 * clinical_risk
 )
+
+overall_risk = min(overall_risk, 1.0)
 # ---------------------------------------------------
 # RISK CATEGORY
 # ---------------------------------------------------
 
-if overall_risk < 0.40:
+if overall_risk < 0.30:
     risk_label = "LOW RISK"
     risk_color = "green"
 
-elif overall_risk < 0.65:
+elif overall_risk < 0.60:
     risk_label = "MODERATE RISK"
     risk_color = "orange"
 
