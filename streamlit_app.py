@@ -135,31 +135,7 @@ baseline_life_risk = (
     life_df["Lifestyle_score"].mean() /
     life_df["Lifestyle_score"].max()
 )
-col1, col2, col3 = st.columns(3)
 
-with col1:
-    st.markdown(f"""
-    <div class="metric-card">
-        <h3>Transcriptomic Risk</h3>
-        <h1>{Gene_risk:.2f}</h1>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown(f"""
-    <div class="metric-card">
-        <h3>Metabolomic Risk</h3>
-        <h1>{Met_risk:.2f}</h1>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown(f"""
-    <div class="metric-card">
-        <h3>Lifestyle Risk</h3>
-        <h1>{final_lifestyle_risk:.2f}</h1>
-    </div>
-    """, unsafe_allow_html=True)
 # ---------------------------------------------------
 # TITLE
 # ---------------------------------------------------
@@ -306,6 +282,32 @@ final_lifestyle_risk = personal_lifestyle
 gene_risk = base_gene_risk * (1 + 0.25 * final_lifestyle_risk)
 
 met_risk = base_met_risk * (1 + 0.35 * final_lifestyle_risk)
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(f"""
+    <div class="metric-card">
+        <h3>Transcriptomic Risk</h3>
+        <h1>{gene_risk:.2f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown(f"""
+    <div class="metric-card">
+        <h3>Metabolomic Risk</h3>
+        <h1>{met_risk:.2f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown(f"""
+    <div class="metric-card">
+        <h3>Lifestyle Risk</h3>
+        <h1>{final_lifestyle_risk:.2f}</h1>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ----------------------------------------
 # Final weighted integration
