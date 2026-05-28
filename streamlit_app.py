@@ -141,7 +141,7 @@ with col1:
     st.markdown(f"""
     <div class="metric-card">
         <h3>Transcriptomic Risk</h3>
-        <h1>{gene_risk:.2f}</h1>
+        <h1>{Gene_risk:.2f}</h1>
     </div>
     """, unsafe_allow_html=True)
 
@@ -149,7 +149,7 @@ with col2:
     st.markdown(f"""
     <div class="metric-card">
         <h3>Metabolomic Risk</h3>
-        <h1>{met_risk:.2f}</h1>
+        <h1>{Met_risk:.2f}</h1>
     </div>
     """, unsafe_allow_html=True)
 
