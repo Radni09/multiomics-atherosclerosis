@@ -45,11 +45,7 @@ gene_mean = gene_df["Gene_score"].mean()
 gene_min = gene_df["Gene_score"].min()
 gene_max = gene_df["Gene_score"].max()
 
-base_gene_risk = (
-    (gene_mean - gene_min) /
-    (gene_max - gene_min)
-) * 0.3
-
+base_gene_risk = min(base_gene_risk, 0.6)
 
 
 met_mean = met_df["Metabolite_score"].mean()
@@ -57,10 +53,7 @@ met_mean = met_df["Metabolite_score"].mean()
 met_min = met_df["Metabolite_score"].min()
 met_max = met_df["Metabolite_score"].max()
 
-base_met_risk = (
-    (met_mean - met_min) /
-    (met_max - met_min)
-) * 0.2
+base_met_risk = min(base_met_risk, 0.5)
 
 baseline_life_risk = (
     life_df["Lifestyle_score"].mean() /
@@ -206,14 +199,17 @@ clinical_risk = (
 final_lifestyle_risk = personal_lifestyle 
 # Lifestyle dynamically affects omics
 
-gene_risk = base_gene_risk * (1 + 0.5 * final_lifestyle_risk)
+# ----------------------------------------
+# Dynamic omics modulation
+# ----------------------------------------
 
-met_risk = base_met_risk * (1 + 0.7 * final_lifestyle_risk)
+gene_risk = base_gene_risk * (1 + 0.25 * final_lifestyle_risk)
 
+met_risk = base_met_risk * (1 + 0.35 * final_lifestyle_risk)
 
-# ---------------------------------------------------
-# OVERALL MULTI-OMICS RISK
-# ---------------------------------------------------
+# ----------------------------------------
+# Final weighted integration
+# ----------------------------------------
 
 overall_risk = (
     0.35 * gene_risk +
